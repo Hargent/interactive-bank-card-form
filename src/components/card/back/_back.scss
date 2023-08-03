@@ -1,0 +1,21 @@
+.card {
+	&__back {
+		&--container {
+			position: relative;
+		}
+		&--cvv {
+			position: absolute;
+			color: red;
+			top: 50%;
+			right: 10%;
+			transform: translate(-50%, -50%);
+			&-inputs {
+				width: 1rem;
+				border-radius: 50%;
+				border: none;
+				background: none;
+				color: #fff;
+			}
+		}
+	}
+}

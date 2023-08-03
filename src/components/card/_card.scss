@@ -1,0 +1,29 @@
+.card {
+	&--container {
+		height: max-content;
+		padding: 3rem 0;
+		width: 40%;
+		min-width: 45rem;
+		max-width: 65rem;
+
+		// background-color: fuchsia;
+
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		justify-content: center;
+
+		position: absolute;
+		top: 50%;
+		left: 30%;
+		transform: translate(-50%, -50%);
+
+		& > *:not(:last-child) {
+			margin-bottom: 4rem;
+			align-self: flex-start;
+		}
+	}
+}
+
+@import "./back/back";
+@import "./front/front";
