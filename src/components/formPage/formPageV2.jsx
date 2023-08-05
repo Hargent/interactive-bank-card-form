@@ -32,6 +32,7 @@ const FormPage = () => {
 								type="text"
 								value={initialValues?.holderName}
 								name="holderName"
+								maxLength={30}
 								placeholder="e.g Jane Appleseed"
 								onChange={handleSetInitialValues}
 							/>

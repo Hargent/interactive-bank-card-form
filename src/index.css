@@ -26,6 +26,10 @@ body {
   font-family: Space-Grotesk-medium;
   src: url("./assets/Fonts/Space_Grotesk/static/SpaceGrotesk-Medium.ttf");
 }
+@font-face {
+  font-family: Space-Grotesk-regular;
+  src: url("./assets/Fonts/Space_Grotesk/static/SpaceGrotesk-Regular.ttf");
+}
 .app--container {
   width: 100%;
   margin: auto;
@@ -222,12 +226,12 @@ body {
 }
 .card__number-inputs {
   width: 2.125rem;
-  font-size: 3.2rem;
-  font-family: Space-Grotesk-medium;
+  font-size: 3rem;
+  font-family: Space-Grotesk-regular;
   border-radius: 50%;
   border: none;
   background: none;
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   text-align: center;
 }
 .card__number-space {

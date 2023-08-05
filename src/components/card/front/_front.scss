@@ -62,13 +62,13 @@
 		// justify-content: space-between;
 		&-inputs {
 			width: 2.125rem;
-			font-size: 3.2rem;
-			font-family: $font-family;
+			font-size: 3rem;
+			font-family: $font-family-secondary;
 
 			border-radius: 50%;
 			border: none;
 			background: none;
-			color: #fff;
+			color: $White;
 			text-align: center;
 			// margin: 0 0.125rem;
 		}

@@ -2,7 +2,12 @@
 	font-family: Space-Grotesk-medium;
 	src: url("./assets/Fonts/Space_Grotesk/static/SpaceGrotesk-Medium.ttf");
 }
+@font-face {
+	font-family: Space-Grotesk-regular;
+	src: url("./assets/Fonts/Space_Grotesk/static/SpaceGrotesk-Regular.ttf");
+}
 $font-family: Space-Grotesk-medium;
+$font-family-secondary: Space-Grotesk-regular;
 
 // Colors
 $Red: hsl(0, 100%, 66%); // (input errors)
