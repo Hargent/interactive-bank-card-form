@@ -1,23 +1,20 @@
+import { FormContext } from "../../../context/formContext";
 import PropTypes from "prop-types";
 import frontImg from "../../../assets/images/bg-card-front.png";
+import { useContext } from "react";
+import {
+	getCardMonth,
+	getCardName,
+	getCardNumber,
+	getCardYear,
+	getNumberClassName
+} from "./getFunctions";
 
 // import React from "react";
 
-const Front = ({ cardNumber, cardName, cardExpiryDate }) => {
-	const testNumber = "0000000000000000".split("");
-	const testName = "Jessie Lee";
-	const testMonth = "9";
-	// standardizing month number
-	const standardMonth = month => {
-		const length = month.split("").length;
-		let standardMonth = month;
-		if (length < 2 && length === 1) {
-			standardMonth = `0${month}`;
-		}
-		return standardMonth;
-	};
+const Front = () => {
+	const { initialValues } = useContext(FormContext);
 
-	const testYear = "25";
 	return (
 		<div className="card__front--container">
 			<div className="card__front--bg">
@@ -29,51 +26,53 @@ const Front = ({ cardNumber, cardName, cardExpiryDate }) => {
 					<div className="card__icon"></div>
 				</div>
 				<div className="card__number">
-					{cardNumber}
-					{testNumber.map((val, index) => {
-						return (
-							<input
-								key={index}
-								type="text"
-								disabled
-								value={val}
-								className={`${
-									(index + 1) % 4 === 0 &&
-									index != 0 &&
-									index / 4 !== 4
-										? "card__number-inputs card__number-space"
-										: "card__number-inputs"
-								}`}
-							/>
-						);
-					})}
-					<input
-						type="text"
-						disabled
-						value=" "
-						className="card__number-inputs card__number-space-1"
-					/>
-					<input
-						type="text"
-						disabled
-						value=" "
-						className="card__number-inputs card__number-space-2"
-					/>
-					<input
-						type="text"
-						disabled
-						value=" "
-						className="card__number-inputs card__number-space-3"
-					/>
+					{getCardNumber(initialValues.cardNumber).map(
+						(val, index) => {
+							return (
+								<input
+									key={index}
+									type="text"
+									disabled
+									value={val}
+									className={getNumberClassName(
+										index,
+										initialValues.cardNumber
+									)}
+								/>
+							);
+						}
+					)}
 				</div>
 				<div className="card__front--footer">
-					<div className="card__name">
-						{cardName}
-						{testName}
+					<div
+						className={`${
+							initialValues.holderName === ""
+								? "card__name not-active"
+								: "card__name"
+						}`}>
+						{getCardName(initialValues.holderName)}
 					</div>
 					<div className="card__expiry--date">
-						{cardExpiryDate}
-						{standardMonth(testMonth)}/{testYear}
+						<span
+							className={`${
+								initialValues.month === "" && "not-active"
+							}`}>
+							{getCardMonth(initialValues.month)}
+						</span>
+						<span
+							className={`${
+								(initialValues.year === "" ||
+									initialValues.month === "") &&
+								"not-active"
+							}`}>
+							/
+						</span>
+						<span
+							className={`${
+								initialValues.year === "" && "not-active"
+							}`}>
+							{getCardYear(initialValues.year)}
+						</span>
 					</div>
 				</div>
 			</div>

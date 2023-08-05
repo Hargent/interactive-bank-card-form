@@ -59,10 +59,12 @@
 
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		// justify-content: space-between;
 		&-inputs {
 			width: 2.125rem;
 			font-size: 3.2rem;
+			font-family: $font-family;
+
 			border-radius: 50%;
 			border: none;
 			background: none;
@@ -74,4 +76,7 @@
 			margin-right: 1rem;
 		}
 	}
+}
+.not-active {
+	color: #ffffff6b !important;
 }

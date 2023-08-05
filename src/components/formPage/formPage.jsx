@@ -2,31 +2,20 @@
 
 import * as Yup from "yup";
 
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 
 import { useState } from "react";
 
 const FormPage = () => {
 	const [formData, setFormData] = useState(null);
 	console.log(formData);
-	// const cc_format = value => {
-	// 	const v = value
-	// 		.replace(/\s+/g, "")
-	// 		.replace(/[^0-9]/gi, "")
-	// 		.substr(0, 16);
-	// 	const parts = [];
-
-	// 	for (let i = 0; i < v.length; i += 4) {
-	// 		parts.push(v.substr(i, 4));
-	// 	}
-	// };
 
 	const handleSubmit = data => {
 		console.log(data);
 	};
 
 	const cardValidationSchema = Yup.object().shape({
-		holderName: Yup.string().required("Can't be blank"),
+		holderName: Yup.string().required("Card holder name required!"),
 		cardNumber: Yup.number().required("Can't be blank"),
 		cvc: Yup.number().required("Can't be blank"),
 
@@ -63,10 +52,29 @@ const FormPage = () => {
 					cvc: ""
 				}}
 				validationSchema={cardValidationSchema}
+				validate={values => {
+					const errors = {};
+					if (values.cardNumber.length < 16) {
+						errors.cardNumber = `${
+							16 - values.cardNumber.length
+						} characters left`;
+					} else if (isNaN(values.cardNumber)) {
+						errors.cardNumber = "Wrong format, numbers only ";
+					}
+					if (values.holderName.split(" ").length < 2) {
+						errors.holderName = "Full name required";
+					} else if (values.holderName.split(" ").length > 3) {
+						errors.holderName =
+							"Name-format : FirstName MiddleName LastName";
+					}
+
+					return errors;
+				}}
 				onSubmit={(values, { setSubmitting }) => {
 					setTimeout(() => {
 						setFormData(JSON.stringify(values, null, 2));
-						setSubmitting(JSON.stringify(values, null, 2));
+						alert(JSON.stringify(values, null, 2));
+						setSubmitting(false);
 						handleSubmit(formData);
 					}, 400);
 				}}>
@@ -82,6 +90,9 @@ const FormPage = () => {
 									type="text"
 									name="holderName"
 									placeholder="e.g Jane Appleseed"
+									// onChange={() => {
+									// 	console.log("It works");
+									// }}
 								/>
 								<div className="error">
 									{errors.holderName && touched.holderName ? (
@@ -100,22 +111,13 @@ const FormPage = () => {
 									type="text"
 									name="cardNumber"
 									placeholder="e.g 1234 5678 9123 4567"
-									maxlength={16}
+									// maxlength={16}
+									maxLength={16}
 								/>
 								<div className="error">
-									{/* {errors.cardNumber && touched.cardNumber ? (
+									{errors.cardNumber && touched.cardNumber ? (
 										<div>{errors.cardNumber}</div>
-									) : null} */}
-									<ErrorMessage name="cardNumber">
-										{() => {
-											console.log(errors);
-											return (
-												<div>
-													Wrong format, number only
-												</div>
-											);
-										}}
-									</ErrorMessage>
+									) : null}
 								</div>
 							</div>
 							<div className="form__layout__item"></div>
@@ -126,53 +128,33 @@ const FormPage = () => {
 									exp. date(mm/yy)
 								</p>
 								<div className="form__layout__item">
-									<FieldArray
-										name="date"
-										render={() => {
-											return (
-												<div className="form__date__field">
-													<div className="form__layout__item">
-														<Field
-															className="form__field"
-															type="text"
-															name="month"
-															placeholder="MM"
-															maxlength={2}
-														/>
-														{/* <div className="error">
-															{errors.month &&
-															touched.month ? (
-																<ErrorMessage name="month" />
-															) : null}
-														</div> */}
-													</div>
+									<div className="form__date__field">
+										<div className="form__layout__item">
+											<Field
+												className="form__field"
+												type="text"
+												name="month"
+												placeholder="MM"
+												maxLength={2}
+											/>
+										</div>
 
-													<Field
-														className="form__field"
-														type="text"
-														name="year"
-														placeholder="YY"
-														maxlength={2}
-													/>
-													<div className="error">
-														<ErrorMessage name="date">
-															{() => {
-																<div>
-																	Numbers only
-																</div>;
-															}}
-														</ErrorMessage>
-													</div>
-													{/* <div className="error">
-														{errors.year &&
-														touched.year ? (
-															<ErrorMessage name="year" />
-														) : null}
-													</div> */}
-												</div>
-											);
-										}}
-									/>
+										<Field
+											className="form__field"
+											type="text"
+											name="year"
+											placeholder="YY"
+											maxLength={2}
+										/>
+										<div className="error">
+											<ErrorMessage name="date">
+												{() => {
+													<div>Numbers only</div>;
+												}}
+											</ErrorMessage>
+										</div>
+										
+									</div>
 
 									<div className="error">
 										<ErrorMessage name="date">
@@ -193,7 +175,8 @@ const FormPage = () => {
 										type="text"
 										name="cvc"
 										placeholder="e.g 123"
-										maxlength={3}
+										// maxlength={3}
+										maxLength={3}
 									/>
 
 									<div className="error">

@@ -1,19 +1,20 @@
 import Card from "../components/card/card";
-import FormPage from "../components/formPage/formPage";
+import FormPage from "../components/formPage/formPageV2";
+import { FormContextProvider } from "../context/formContext";
 
 const App = () => {
 	return (
-		<div className="app--container">
-			<div className="app__card">
-				<div className="app__card--bg-img">
-					{/* <img src={cardBg} alt="#" className="card__section--bg" /> */}
+		<FormContextProvider>
+			<div className="app--container">
+				<div className="app__card">
+					<div className="app__card--bg-img"></div>
+					<Card />
 				</div>
-				<Card />
+				<div className="app__form">
+					<FormPage />
+				</div>
 			</div>
-			<div className="app__form">
-				<FormPage />
-			</div>
-		</div>
+		</FormContextProvider>
 	);
 };
 
