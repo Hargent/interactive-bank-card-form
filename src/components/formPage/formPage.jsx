@@ -153,7 +153,6 @@ const FormPage = () => {
 												}}
 											</ErrorMessage>
 										</div>
-										
 									</div>
 
 									<div className="error">

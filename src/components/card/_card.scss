@@ -17,10 +17,25 @@
 		top: 50%;
 		left: 30%;
 		transform: translate(-50%, -50%);
+		&.submitted {
+			left: 50%;
+			& > * {
+				transform: translate(-50%, -50%) scale(1.5);
+				position: absolute;
+				left: 50%;
+				top: 50%;
+			}
+		}
 
 		& > *:not(:last-child) {
 			margin-bottom: 4rem;
 			align-self: flex-start;
+		}
+		& > *.submitted {
+			transform: translate(-50%, -50%) scale(1.5);
+			position: absolute;
+			left: 50%;
+			top: 50%;
 		}
 	}
 }

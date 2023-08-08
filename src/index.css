@@ -124,6 +124,13 @@ body {
   font-family: Space-Grotesk-medium;
 }
 
+.error {
+  color: hsl(0, 100%, 66%);
+  font-family: Space-Grotesk-medium;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
 .card--container {
   height: -moz-max-content;
   height: max-content;
@@ -140,9 +147,24 @@ body {
   left: 30%;
   transform: translate(-50%, -50%);
 }
+.card--container.submitted {
+  left: 50%;
+}
+.card--container.submitted > * {
+  transform: translate(-50%, -50%) scale(1.5);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
 .card--container > *:not(:last-child) {
   margin-bottom: 4rem;
   align-self: flex-start;
+}
+.card--container > *.submitted {
+  transform: translate(-50%, -50%) scale(1.5);
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 .card__back--container {

@@ -37,7 +37,11 @@ const Back = () => {
 							type="text"
 							disabled
 							value={val}
-							className="card__back--cvv-inputs"
+							className={`${
+								cvcValue === ""
+									? "card__back--cvv-inputs not-active"
+									: "card__back--cvv-inputs"
+							}`}
 							placeholder="0"
 						/>
 					);

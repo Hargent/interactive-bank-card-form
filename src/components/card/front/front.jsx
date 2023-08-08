@@ -1,7 +1,3 @@
-import { FormContext } from "../../../context/formContext";
-import PropTypes from "prop-types";
-import frontImg from "../../../assets/images/bg-card-front.png";
-import { useContext } from "react";
 import {
 	getCardMonth,
 	getCardName,
@@ -10,10 +6,16 @@ import {
 	getNumberClassName
 } from "./getFunctions";
 
+import { FormContext } from "../../../context/formContext";
+import PropTypes from "prop-types";
+import frontImg from "../../../assets/images/bg-card-front.png";
+import { useContext } from "react";
+
 // import React from "react";
 
 const Front = () => {
 	const { initialValues } = useContext(FormContext);
+	// console.log(initialValues);
 
 	return (
 		<div className="card__front--container">

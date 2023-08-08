@@ -1,13 +1,19 @@
+import ErrorMessage from "../errorMessage/errorMessage";
 import { FormContext } from "../../context/formContext";
 import { useContext } from "react";
 
 const FormPage = () => {
-	const { initialValues, handleSetInitialValues } = useContext(FormContext);
+	const {
+		initialValues,
+		handleSetInitialValues,
+
+		handleSubmission
+	} = useContext(FormContext);
 
 	const cc_format = value => {
 		const v = value
 			.replace(/\s+/g, "")
-			.replace(/[^0-9]/gi, "")
+			.replace(/[^0-9A-Za-z]/gi, "")
 			.substr(0, 16);
 		const parts = [];
 
@@ -17,10 +23,14 @@ const FormPage = () => {
 
 		return parts.length > 1 ? parts.join(" ") : value;
 	};
+	const verifyCard = e => {
+		e.preventDefault();
 
+		handleSubmission(true);
+	};
 	return (
 		<div className="form--container">
-			<form>
+			<form onSubmit={verifyCard}>
 				<div className="form__layout">
 					<div className="form__name--container">
 						<p className="form__layout__item--labels">
@@ -37,6 +47,9 @@ const FormPage = () => {
 								onChange={handleSetInitialValues}
 							/>
 						</div>
+						<div className="form__layout__item--errors">
+							<ErrorMessage name="holderName" />
+						</div>
 					</div>
 					<div className="form__number--container">
 						<p className="form__layout__item--labels">
@@ -52,6 +65,9 @@ const FormPage = () => {
 								maxLength={19}
 								onChange={handleSetInitialValues}
 							/>
+						</div>
+						<div className="form__layout__item--errors">
+							<ErrorMessage name="cardNumber" />
 						</div>
 					</div>
 
@@ -73,16 +89,20 @@ const FormPage = () => {
 											maxLength={2}
 										/>
 									</div>
-
-									<input
-										className="form__field"
-										type="text"
-										name="year"
-										value={initialValues?.year}
-										onChange={handleSetInitialValues}
-										placeholder="YY"
-										maxLength={4}
-									/>
+									<div className="form__layout__item">
+										<input
+											className="form__field"
+											type="text"
+											name="year"
+											value={initialValues?.year}
+											onChange={handleSetInitialValues}
+											placeholder="YY"
+											maxLength={4}
+										/>
+									</div>
+								</div>
+								<div className="form__layout__item--errors">
+									<ErrorMessage name="date" />
 								</div>
 							</div>
 						</div>
@@ -94,9 +114,13 @@ const FormPage = () => {
 									type="text"
 									name="cvc"
 									placeholder="e.g 123"
+									value={initialValues?.cvc}
 									onChange={handleSetInitialValues}
 									maxLength={3}
 								/>
+							</div>
+							<div className="form__layout__item--errors">
+								<ErrorMessage name="cvc" />
 							</div>
 						</div>
 					</div>
